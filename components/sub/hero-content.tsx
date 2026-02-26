@@ -18,30 +18,55 @@ import {
    Network Topology
    ───────────────────────────────────────────── */
 const LAYER_CONFIG = [
-  { name: "Input", count: 4, x: -1.6, z: 0 },
-  { name: "Hidden 1", count: 6, x: -0.5, z: 0 },
-  { name: "Hidden 2", count: 6, x: 0.5, z: 0 },
-  { name: "Output", count: 3, x: 1.6, z: 0 },
+  { name: "Input", count: 16, x: -2.0, spreadY: 2.5, spreadZ: 2.5 },
+  { name: "Conv", count: 32, x: -0.8, spreadY: 3.5, spreadZ: 3.5 },
+  { name: "Hidden 1", count: 24, x: 0.5, spreadY: 2.8, spreadZ: 2.8 },
+  { name: "Hidden 2", count: 16, x: 1.6, spreadY: 2.0, spreadZ: 2.0 },
+  { name: "Output", count: 4, x: 2.6, spreadY: 0.8, spreadZ: 0.8 },
 ];
 
 function buildNetwork() {
   const nodes: { pos: [number, number, number]; layer: number; idx: number }[] = [];
   const edges: { from: [number, number, number]; to: [number, number, number]; layerIdx: number }[] = [];
 
+  let seed = 42;
+  const random = () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+
+  // Generate nodes in 3D using pseudo-random distribution
   LAYER_CONFIG.forEach((layer, li) => {
     for (let i = 0; i < layer.count; i++) {
-      const y = (i - (layer.count - 1) / 2) * 0.5;
-      const pos: [number, number, number] = [layer.x, y, layer.z];
-      nodes.push({ pos, layer: li, idx: i });
-
-      if (li < LAYER_CONFIG.length - 1) {
-        const next = LAYER_CONFIG[li + 1];
-        for (let j = 0; j < next.count; j++) {
-          const ny = (j - (next.count - 1) / 2) * 0.65;
-          edges.push({ from: pos, to: [next.x, ny, next.z], layerIdx: li });
-        }
-      }
+      const r = Math.sqrt(random()) * (layer.spreadY / 2);
+      const theta = random() * 2 * Math.PI;
+      const py = r * Math.cos(theta);
+      const pz = r * Math.sin(theta);
+      const pos: [number, number, number] = [layer.x, py, pz];
+      nodes.push({ pos, layer: li, idx: nodes.length });
     }
+  });
+
+  // Generate edges: simulate local receptive fields to prevent spaghetti lines
+  LAYER_CONFIG.forEach((layer, li) => {
+    if (li >= LAYER_CONFIG.length - 1) return;
+
+    const currNodes = nodes.filter(n => n.layer === li);
+    const nextNodes = nodes.filter(n => n.layer === li + 1);
+
+    currNodes.forEach((curr) => {
+      // Connect to the 4 nearest nodes in the next layer to represent tensor flows
+      const connections = Math.min(nextNodes.length, 4);
+      const targets = [...nextNodes].sort((a, b) => {
+        const distA = Math.hypot(a.pos[1] - curr.pos[1], a.pos[2] - curr.pos[2]);
+        const distB = Math.hypot(b.pos[1] - curr.pos[1], b.pos[2] - curr.pos[2]);
+        return distA - distB;
+      }).slice(0, connections);
+
+      targets.forEach(target => {
+        edges.push({ from: curr.pos, to: target.pos, layerIdx: li });
+      });
+    });
   });
 
   return { nodes, edges };
@@ -143,101 +168,7 @@ const NetworkNode = ({ pos, active, intensity, onHover, onUnhover }: {
   );
 };
 
-/* ─────────────────────────────────────────────
-   Planet Enclosure (Glassy Core + Atmosphere)
-   ───────────────────────────────────────────── */
-const PlanetEnclosure = () => {
-  const atmoRef = useRef<THREE.Mesh>(null!);
 
-  useFrame(({ clock }) => {
-    const s = 1 + Math.sin(clock.getElapsedTime() * 2) * 0.015;
-    if (atmoRef.current) atmoRef.current.scale.setScalar(s);
-  });
-
-  return (
-    <group>
-      {/* Glassy Core Shell */}
-      <mesh>
-        <sphereGeometry args={[3.2, 64, 64]} />
-        <meshPhysicalMaterial
-          color="#060b26"
-          emissive="#1e3a8a"
-          emissiveIntensity={0.2}
-          transparent
-          opacity={0.3}
-          metalness={0.8}
-          roughness={0.05}
-          transmission={0.95}
-          thickness={1.5}
-          ior={1.2}
-          clearcoat={1.0}
-          clearcoatRoughness={0.1}
-          side={THREE.BackSide}
-        />
-      </mesh>
-      {/* Geodesic Tech Grid */}
-      <mesh>
-        <icosahedronGeometry args={[3.2, 2]} />
-        <meshBasicMaterial
-          color="#38bdf8"
-          wireframe
-          transparent
-          opacity={0.03}
-        />
-      </mesh>
-      {/* Glowing Atmosphere Layers */}
-      <mesh ref={atmoRef}>
-        <sphereGeometry args={[3.3, 64, 64]} />
-        <meshBasicMaterial
-          color="#38bdf8"
-          transparent
-          opacity={0.05}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          side={THREE.BackSide}
-        />
-      </mesh>
-      <mesh>
-        <sphereGeometry args={[3.4, 64, 64]} />
-        <meshBasicMaterial
-          color="#818cf8"
-          transparent
-          opacity={0.03}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          side={THREE.BackSide}
-        />
-      </mesh>
-    </group>
-  );
-};
-
-/* ─────────────────────────────────────────────
-   Orbital Rings (Saturn-style)
-   ───────────────────────────────────────────── */
-const OrbitalRings = () => {
-  const ref1 = useRef<THREE.Mesh>(null!);
-  const ref2 = useRef<THREE.Mesh>(null!);
-
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * 0.1;
-    ref1.current.rotation.z = Math.sin(t) * 0.05;
-    ref2.current.rotation.z = Math.sin(t + 0.5) * 0.05;
-  });
-
-  return (
-    <group rotation={[Math.PI / 2.5, 0.3, 0]}>
-      <mesh ref={ref1}>
-        <torusGeometry args={[3.6, 0.015, 16, 100]} />
-        <meshBasicMaterial color="#38bdf8" transparent opacity={0.2} blending={THREE.AdditiveBlending} />
-      </mesh>
-      <mesh ref={ref2}>
-        <torusGeometry args={[3.8, 0.008, 16, 100]} />
-        <meshBasicMaterial color="#818cf8" transparent opacity={0.15} blending={THREE.AdditiveBlending} />
-      </mesh>
-    </group>
-  );
-};
 
 /* ─────────────────────────────────────────────
    Pulse Wave (click shockwave)
@@ -302,7 +233,7 @@ const DeepLearningSimulation = () => {
   const [pulseActive, setPulseActive] = useState(false);
   const [hoveredLayer, setHoveredLayer] = useState<number | null>(null);
 
-  const PHASES = ["Forward: Input → Hidden", "Forward: Hidden → Output", "Loss Calculation", "Backpropagation"];
+  const PHASES = ["Forward: Input → Conv", "Forward: Conv → Hidden", "Forward: Hidden → Output", "Loss Calculation", "Backpropagation"];
 
   useFrame(({ clock, mouse }) => {
     const t = clock.getElapsedTime();
@@ -326,7 +257,7 @@ const DeepLearningSimulation = () => {
   }, []);
 
   return (
-    <group ref={groupRef} onClick={handleClick} scale={0.6}>
+    <group ref={groupRef} onClick={handleClick} scale={0.8}>
       {/* Gradient Connection Lines */}
       {edges.map((edge, i) => {
         const isActive = edge.layerIdx === activeLayer || edge.layerIdx === activeLayer - 1
@@ -357,7 +288,7 @@ const DeepLearningSimulation = () => {
       {LAYER_CONFIG.map((layer, i) => (
         <Html
           key={`label-${i}`}
-          position={[layer.x, (layer.count - 1) / 2 * 0.5 + 0.32, layer.z]}
+          position={[layer.x, layer.spreadY / 2 + 0.2, 0]}
           center
           distanceFactor={12}
           style={{ pointerEvents: "none" }}
@@ -399,13 +330,7 @@ const DeepLearningSimulation = () => {
         </div>
       </Html>
 
-      {/* Planet Enclosure */}
-      <PlanetEnclosure />
 
-      {/* Orbital Rings */}
-      <OrbitalRings />
-
-      {/* Click Pulse Wave */}
       <PulseWave active={pulseActive} />
     </group>
   );
