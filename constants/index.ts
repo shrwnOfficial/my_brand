@@ -9,7 +9,17 @@ import {
 const SKILL_ICON_BASE = "https://skillicons.dev/icons?i=";
 const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
 
-export const SKILL_CATEGORIES = [
+export type Skill = {
+  name: string;
+  icon: string;
+};
+
+export type SkillCategory = {
+  title: string;
+  skills: Skill[];
+};
+
+export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Programming",
     skills: [
@@ -92,7 +102,7 @@ export const SKILL_CATEGORIES = [
       { name: "Kubernetes", icon: `${SKILL_ICON_BASE}kubernetes` },
     ],
   },
-] as const;
+];
 
 export const SOCIALS = [
   {
