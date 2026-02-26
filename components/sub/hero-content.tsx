@@ -31,7 +31,7 @@ const StringTheoryLine = ({
   // Creates a long curve representing one "string"
   const points = useMemo(() => {
     const pts = [];
-    const segments = 200; // Increased resolution
+    const segments = 100;
     for (let i = 0; i <= segments; i++) {
       pts.push(new THREE.Vector3(0, 0, 0));
     }
@@ -45,17 +45,17 @@ const StringTheoryLine = ({
   const color = new THREE.Color().setHSL(0.55 + (index / total) * 0.15, 0.8, 0.6); // Cyan to purple gradient
 
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * 0.2; // Slower, smoother time scalar
+    const t = clock.getElapsedTime() * 0.3;
     const positions = geometry.attributes.position.array as Float32Array;
 
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
-    for (let i = 0; i <= 200; i++) {
-      const p = i / 200; // 0 to 1 along the line
-      const baseLength = 40; // Doubled width to expand beyond edges of the screen
+    for (let i = 0; i <= 100; i++) {
+      const p = i / 100; // 0 to 1 along the line
+      const baseLength = 20; // How far the line stretches out horizontally
 
-      // X maps from -20 to 20
+      // X maps from -10 to 10
       const x = (p - 0.5) * baseLength;
 
       // Complex undulating sine waves mapping string theory vibrations
