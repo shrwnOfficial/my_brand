@@ -166,7 +166,7 @@ export const PROJECTS = [
     description:
       "A predictive model using Random Forest Regression to estimate optimal water levels for agricultural tanks in India. Integrates local weather APIs to increase predictive accuracy and aids in water conservation efforts.",
     image: "/projects/kavery_river.jpg",
-    link: "https://github.com/shrwnOfficial/AI-water-distribution-",
+    link: "https://github.com/shrwnOfficial/UG_Projects/tree/main/AI_water_distribution",
     logo: "water",
   },
 ] as const;
