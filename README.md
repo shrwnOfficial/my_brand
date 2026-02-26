@@ -16,7 +16,7 @@
 
 ## 🌌 About The Project
 
-Welcome to the **3D Space Portfolio**! This template is designed to showcase your skills, projects, and experiences in a captivating, cosmic environment. Built on the bleeding edge of web development, it leverages the power of Next.js 14 for performance and SEO, paired with React Three Fiber to bring the cosmos right to the user's browser.
+Welcome to the **3D Space Portfolio**! This template is designed to showcase my skills, projects, and experiences in a captivating, cosmic environment. Built on the bleeding edge of web development, it leverages the power of Next.js 14 for performance and SEO, paired with React Three Fiber to bring the cosmos right to the user's browser.
 
 ### ✨ ✨ Features
 - **Immersive 3D Experience:** Interactive space environment with a rotating starfield, nebulae, and floating elements.
@@ -122,13 +122,5 @@ Contributions are what make the open source community such an amazing place to l
 5. Open a Pull Request
 
 ---
-
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-<div align="center">
   <p>Made with ❤️ by <a href="https://github.com/shrwnOfficial">Shrawan</a></p>
 </div>
