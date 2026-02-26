@@ -150,7 +150,7 @@ export const PROJECTS = [
     description:
       "A fast machine learning web app utilizing deep learning (ResNet50) to instantly detect which Bollywood celebrity you look closest to from an uploaded picture. Achieves high accuracy across thousands of celebrity images.",
     image: "/projects/bollywood-celeb-sketch.jpg",
-    link: "https://github.com/shrwnOfficial/Bollywood-Celeb-Predictor",
+    link: "https://github.com/shrwnOfficial/which-bollywood-celebrity-are-you",
     logo: "camera",
   },
   {
