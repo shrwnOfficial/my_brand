@@ -15,6 +15,120 @@ import {
 } from "@/lib/motion";
 
 /* ─────────────────────────────────────────────
+   String Theory Simulation Elements
+   ───────────────────────────────────────────── */
+const StringTheoryLine = ({
+  index,
+  total,
+  mouse
+}: {
+  index: number;
+  total: number;
+  mouse: React.MutableRefObject<THREE.Vector3>;
+}) => {
+  const lineRef = useRef<any>(null);
+
+  // Creates a long curve representing one "string"
+  const points = useMemo(() => {
+    const pts = [];
+    const segments = 100;
+    for (let i = 0; i <= segments; i++) {
+      pts.push(new THREE.Vector3(0, 0, 0));
+    }
+    return pts;
+  }, []);
+
+  const [geometry] = useState(() => new THREE.BufferGeometry().setFromPoints(points));
+
+  // Base offset to make each string unique
+  const offset = (index / total) * Math.PI * 2;
+  const color = new THREE.Color().setHSL(0.55 + (index / total) * 0.15, 0.8, 0.6); // Cyan to purple gradient
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime() * 0.3;
+    const positions = geometry.attributes.position.array as Float32Array;
+
+    const mx = mouse.current.x;
+    const my = mouse.current.y;
+
+    for (let i = 0; i <= 100; i++) {
+      const p = i / 100; // 0 to 1 along the line
+      const baseLength = 20; // How far the line stretches out horizontally
+
+      // X maps from -10 to 10
+      const x = (p - 0.5) * baseLength;
+
+      // Complex undulating sine waves mapping string theory vibrations
+      const freq1 = 1.5 + offset;
+      const freq2 = 3.0 - offset;
+      const y = Math.sin(x * freq1 + t * 2) * 1.5
+        + Math.cos(x * freq2 - t * 1.5) * 1.0
+        + Math.sin(t + offset) * 2.0;
+
+      const z = Math.cos(x * freq1 - t * 2) * 1.5
+        + Math.sin(x * freq2 + t * 1.5) * 1.0;
+
+      // Distance to mouse for interactive repulsion
+      const dx = x - mx;
+      const dy = y - my;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const repulsion = Math.max(0, 3 - dist);
+
+      // Apply interactivity
+      const finalY = y + (dy / (dist || 0.1)) * repulsion * 0.5;
+      const finalZ = z + repulsion; // Push towards camera slightly
+
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = finalY;
+      positions[i * 3 + 2] = finalZ;
+    }
+
+    geometry.attributes.position.needsUpdate = true;
+    if (lineRef.current) {
+      lineRef.current.rotation.x = Math.sin(t * 0.5) * 0.2;
+      lineRef.current.rotation.y = Math.cos(t * 0.3) * 0.1;
+    }
+  });
+
+  return (
+    <primitive object={new THREE.Line(
+      geometry,
+      new THREE.LineBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+        linewidth: 2,
+      })
+    )} ref={lineRef} />
+  );
+};
+
+const StringTheorySimulation = () => {
+  const mouseRef = useRef(new THREE.Vector3(0, 0, 0));
+  useFrame((state) => {
+    // Map normalized mouse coordinates to 3D space
+    mouseRef.current.x = (state.pointer.x * state.viewport.width) / 2;
+    mouseRef.current.y = (state.pointer.y * state.viewport.height) / 2;
+  });
+
+  const numStrings = 35; // Number of cosmic strings
+
+  return (
+    <group>
+      {Array.from({ length: numStrings }).map((_, i) => (
+        <StringTheoryLine
+          key={i}
+          index={i}
+          total={numStrings}
+          mouse={mouseRef}
+        />
+      ))}
+    </group>
+  );
+};
+
+/* ─────────────────────────────────────────────
    Hero Content Export
    ───────────────────────────────────────────── */
 export const HeroContent = () => {
@@ -37,15 +151,25 @@ export const HeroContent = () => {
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="flex flex-col gap-6 mt-6 text-4xl md:text-7xl font-bold text-white max-w-[900px] w-auto h-auto"
+          className="relative flex flex-col gap-6 mt-6 text-4xl md:text-7xl font-bold text-white max-w-[900px] w-auto h-auto items-center"
         >
-          <span>
+          {/* 3D Canvas Background fixed directly behind the text */}
+          <div className="absolute inset-0 z-[-1] pointer-events-auto h-[300px] w-full mt-[-80px] opacity-70">
+            <Canvas camera={{ position: [0, 0, 15], fov: 45 }} gl={{ alpha: true }}>
+              <ambientLight intensity={0.5} />
+              <Suspense fallback={null}>
+                <StringTheorySimulation />
+              </Suspense>
+            </Canvas>
+          </div>
+
+          <span className="z-10 relative">
             Hi, I am{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">
               Shrawan
             </span>
           </span>
-          <div className="h-[60px] md:h-auto overflow-hidden">
+          <div className="h-[60px] md:h-[80px] overflow-hidden z-10 relative">
             <TypeAnimation
               sequence={[
                 "AI/ML Engineer",
