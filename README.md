@@ -54,7 +54,7 @@ You need `Node.js` installed on your machine.
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/sanidhyy/space-portfolio.git
+   git clone https://github.com/shrwnOfficial/my_brand.git
    ```
 
 2. **Navigate into the project directory**
@@ -130,5 +130,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/sanidhyy">Sanidhya Kumar Verma</a></p>
+  <p>Made with ❤️ by <a href="https://github.com/shrwnOfficial">Shrawan</a></p>
 </div>
