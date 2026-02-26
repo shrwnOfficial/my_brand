@@ -53,25 +53,20 @@ const StringTheoryLine = ({
 
     for (let i = 0; i <= 100; i++) {
       const p = i / 100; // 0 to 1 along the line
+      const baseLength = 20; // How far the line stretches out horizontally
 
-      // X maps from -15 to 15
-      const baseLength = 30; // 30 units wide 
+      // X maps from -10 to 10
       const x = (p - 0.5) * baseLength;
 
-      // Realistic quantum string theory math mapping
-      // Strings vibrate with Calabi-Yau inspired multidimensional high-frequency harmonics
-      const primaryFreq = 2.5 + offset * 0.5;
-      const secondaryFreq = 5.0 - offset * 0.3;
-      const chaoticFreq = 12.0;
+      // Complex undulating sine waves mapping string theory vibrations
+      const freq1 = 1.5 + offset;
+      const freq2 = 3.0 - offset;
+      const y = Math.sin(x * freq1 + t * 2) * 1.5
+        + Math.cos(x * freq2 - t * 1.5) * 1.0
+        + Math.sin(t + offset) * 2.0;
 
-      // Y-axis vibration (transverse wave)
-      const y = Math.sin(x * primaryFreq + t * 3.5) * 1.2
-        + Math.cos(x * secondaryFreq - t * 2.0) * 0.8
-        + Math.sin(x * chaoticFreq + t * 5.0) * 0.15 * Math.sin(t);
-
-      // Z-axis vibration (depth wave, strings curling around each other)
-      const z = Math.cos(x * primaryFreq - t * 3.5) * 1.2
-        + Math.sin(x * secondaryFreq + t * 2.0) * 0.8;
+      const z = Math.cos(x * freq1 - t * 2) * 1.5
+        + Math.sin(x * freq2 + t * 1.5) * 1.0;
 
       // Distance to mouse for interactive repulsion
       const dx = x - mx;
