@@ -71,7 +71,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Computer Organization",
-        icon: "https://api.iconify.design/flat-color-icons/motherboard.svg",
+        icon: `${DEVICON_BASE}/digitalocean/digitalocean-original.svg`,
       },
       {
         name: "Compiler Design",

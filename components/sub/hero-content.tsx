@@ -257,7 +257,7 @@ const DeepLearningSimulation = () => {
   }, []);
 
   return (
-    <group ref={groupRef} onClick={handleClick} scale={0.8}>
+    <group ref={groupRef} onClick={handleClick} scale={typeof window !== "undefined" && window.innerWidth < 768 ? 0.45 : 0.8}>
       {/* Gradient Connection Lines */}
       {edges.map((edge, i) => {
         const isActive = edge.layerIdx === activeLayer || edge.layerIdx === activeLayer - 1
@@ -404,7 +404,7 @@ export const HeroContent = () => {
 
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-[400px] lg:h-[650px] flex justify-center items-center cursor-grab active:cursor-grabbing mt-10 lg:mt-0"
+        className="w-full h-[350px] md:h-[400px] lg:h-[650px] flex justify-center items-center cursor-grab active:cursor-grabbing mt-10 lg:mt-0"
       >
         <Canvas
           camera={{ position: [0, 0, 7], fov: 45 }}

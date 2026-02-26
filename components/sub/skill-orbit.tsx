@@ -16,7 +16,10 @@ export const SkillOrbit = ({
   duration = 40,
 }: SkillOrbitProps) => {
   const count = skills.length;
-  const size = radius * 2 + 120;
+  // Reduce orbit radius slightly on small screens
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const actualRadius = isMobile ? radius * 0.6 : radius;
+  const size = actualRadius * 2 + (isMobile ? 80 : 120);
 
   return (
     <div
