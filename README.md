@@ -1,192 +1,134 @@
-<a name="readme-top"></a>
+<div align="center">
+  <img src="public/logo.png" alt="Logo" width="100" height="100" />
+  <h1>🚀 3D Space Portfolio</h1>
+  <p>A mesmerizing, fully responsive 3D portfolio built with Next.js 14, React Three Fiber, and Framer Motion.</p>
 
-# Modern Space Theme Portfolio using Next.js 14 and Three.js
+  <p>
+    <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" /></a>
+    <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React" /></a>
+    <a href="https://threejs.org/"><img src="https://img.shields.io/badge/Three.js-white?style=for-the-badge&logo=three.js&logoColor=black" alt="Three.js" /></a>
+    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" /></a>
+    <a href="https://www.framer.com/motion/"><img src="https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer" alt="Framer Motion" /></a>
+  </p>
+</div>
 
-![Modern Space Theme Portfolio using Next.js 14 and Three.js](/.github/images/img_main.png "Modern Space Theme Portfolio using Next.js 14 and Three.js")
+---
 
-[![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy "Ask Me Anything!")
-[![GitHub license](https://flat.badgen.net/github/license/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/blob/main/LICENSE "GitHub license")
-[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/commits/main "Maintenance")
-[![GitHub branches](https://flat.badgen.net/github/branches/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/branches "GitHub branches")
-[![Github commits](https://flat.badgen.net/github/commits/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/commits "Github commits")
-[![GitHub issues](https://flat.badgen.net/github/issues/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/issues "GitHub issues")
-[![GitHub pull requests](https://flat.badgen.net/github/prs/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/pulls "GitHub pull requests")
-[![Netlify Status](https://api.netlify.com/api/v1/badges/451ed0e0-3541-474e-896a-4987e30a7722/deploy-status)](https://spaceportfolio.netlify.app/ "Netlify Status")
+## 🌌 About The Project
 
-<!-- Table of Contents -->
-<details>
+Welcome to the **3D Space Portfolio**! This template is designed to showcase your skills, projects, and experiences in a captivating, cosmic environment. Built on the bleeding edge of web development, it leverages the power of Next.js 14 for performance and SEO, paired with React Three Fiber to bring the cosmos right to the user's browser.
 
-<summary>
+### ✨ ✨ Features
+- **Immersive 3D Experience:** Interactive space environment with a rotating starfield, nebulae, and floating elements.
+- **Scroll Animations:** Smooth reveal animations using Framer Motion and Intersection Observer.
+- **High Performance:** Optimized 3D rendering and Next.js 14 app directory features.
+- **Fully Responsive:** Looks great across all devices—from desktop monitors to mobile phones.
+- **Modern UI Forms & Cards:** Glassmorphism designs mixed with sharp, glowing elements fit for the space theme.
 
-# :notebook_with_decorative_cover: Table of Contents
+---
 
-</summary>
+## 🛠️ Built With
 
-- [Folder Structure](#bangbang-folder-structure)
-- [Getting Started](#toolbox-getting-started)
-- [Screenshots](#camera-screenshots)
-- [Tech Stack](#gear-tech-stack)
-- [Stats](#wrench-stats)
-- [Contribute](#raised_hands-contribute)
-- [Acknowledgements](#gem-acknowledgements)
-- [Buy Me a Coffee](#coffee-buy-me-a-coffee)
-- [Follow Me](#rocket-follow-me)
-- [Learn More](#books-learn-more)
-- [Deploy on Vercel](#page_with_curl-deploy-on-vercel)
-- [Give A Star](#star-give-a-star)
-- [Star History](#star2-star-history)
-- [Give A Star](#star-give-a-star)
+This masterpiece is constructed with the latest and greatest robust tech stack:
 
-</details>
+*   **[Next.js 14](https://nextjs.org/)** - React Framework
+*   **[React](https://reactjs.org/)** - UI Library
+*   **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+*   **[Three.js](https://threejs.org/) & [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)** - 3D Graphics
+*   **[Framer Motion](https://www.framer.com/motion/)** - Animations
+*   **[TypeScript](https://www.typescriptlang.org/)** - Type safety
 
-## :bangbang: Folder Structure
+---
 
-Here is the folder structure of this app.
+## 🚀 Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+You need `Node.js` installed on your machine.
+- Node.js (v18 or higher recommended)
+- npm, yarn, pnpm or bun
+
+### Installation
+
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/sanidhyy/space-portfolio.git
+   ```
+
+2. **Navigate into the project directory**
+   ```sh
+   cd space-portfolio
+   ```
+
+3. **Install NPM packages**
+   ```sh
+   npm install --legacy-peer-deps
+   # or
+   yarn install --legacy-peer-deps
+   ```
+
+4. **Start the Development Server**
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Open your browser**
+   Navigate to `http://localhost:3000` to start exploring the universe! 🪐
+
+---
+
+## 📁 Folder Structure
 
 ```bash
 space-portfolio/
-  |- app/
-    |-- favicon.ico
-    |-- globals.css
-    |-- layout.tsx
-    |-- page.tsx
-  |- components/
-    |-- main/
-        |--- encryption.tsx
-        |--- footer.tsx
-        |--- hero.tsx
-        |--- navbar.tsx
-        |--- projects.tsx
-        |--- skills.tsx
-        |--- star-background.tsx
-    |-- sub/
-        |--- hero-content.tsx
-        |--- project-card.tsx
-        |--- skill-data-provider.tsx
-        |--- skill-text.tsx
-  |- config/
-    |-- index.ts
-  |- constants/
-    |-- index.ts
-  |- lib/
-    |-- motion.ts
-    |-- utils.ts
-  |- public/
-    |-- projects/
-    |-- skills/
-    |-- videos/
-    |-- hero-bg.svg
-    |-- lock-main.png
-    |-- lock-top.png
-    |-- logo.png
-  |- .eslintrc.json
-  |- .gitignore
-  |- next.config.js
-  |- package-lock.json
-  |- package.json
-  |- postcss.config.js
-  |- tailwind.config.ts
-  |- tsconfig.json
+├── app/              # Next.js 14 App Router layout and pages
+├── components/       # Reusable React components
+│   ├── main/         # Core sections (Hero, Projects, Skills, Footer)
+│   └── sub/          # Smaller UI parts (Cards, Skill Icons)
+├── config/           # Site configuration and metadata
+├── constants/        # Static data (Skills lists, Social links)
+├── lib/              # Utility functions and motion variants
+├── public/           # Static assets (Images, Videos, Icons)
+└── types/            # TypeScript globally accessible types
 ```
 
-<br />
+---
 
-## :toolbox: Getting Started
+## 📸 Sneak Peek
 
-1. Make sure **Git** and **NodeJS** is installed.
+*Immerse yourself into a visually rich journey:*
 
-2. Clone this repository to your local computer.
+1. **Hero Section:** A captivating introduction with a stellar background.
+2. **Skills Galaxy:** Watch your technical stack orbit in space!
+3. **Projects Showcase:** Display your best work with floating glossy cards.
+4. **Encryption Security:** Trust-inspiring visual cues.
 
-3. Open terminal in root directory. Run `npm install --legacy-peer-deps` or `yarn install --legacy-peer-deps`.
+*(To add screenshots, simply place them in the `/public` or `/.github/images/` folder and link them here.)*
 
-4. Now app is fully configured 👍 and you can start using this app using `npm run dev` or `yarn dev`.
+---
 
-## :camera: Screenshots:
+## 🤝 Contributing
 
-![Modern UI/UX](/.github/images/img1.png "Modern UI/UX")
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-![Showcase your skills](/.github/images/img2.png "Showcase your skills")
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-![Built with Typescript](/.github/images/img3.png "Built with Typescript")
+---
 
-![Showcase your projects](/.github/images/img4.png "Showcase your projects")
+## 📜 License
 
-## :gear: Tech Stack
+Distributed under the MIT License. See `LICENSE` for more information.
 
-[![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Netlify](https://skillicons.dev/icons?i=netlify "Netlify")](https://netlify.app/ "Netlify") [![Three.js](https://skillicons.dev/icons?i=threejs "Three.js")](https://threejs.org/ "Three.js")
+---
 
-## :wrench: Stats
-
-[![Stats for Space Portfolio](/.github/images/stats.svg "Stats for Space Portfolio")](https://pagespeed.web.dev/analysis/https-spaceportfolio-netlify-app/2efbmg117d "Stats for Space Portfolio")
-
-## :raised_hands: Contribute
-
-You might encounter some bugs while using this app. You are more than welcome to contribute. Just submit changes via pull request and I will review them before merging. Make sure you follow community guidelines.
-
-## :gem: Acknowledgements
-
-Useful resources and dependencies that are used in Space Portfolio.
-
-- [@heroicons/react](https://www.npmjs.com/package/@heroicons/react): ^2.1.1
-- [@react-three/drei](https://www.npmjs.com/package/@react-three/drei): ^9.93.0
-- [@react-three/fiber](https://www.npmjs.com/package/@react-three/fiber): ^8.15.13
-- [clsx](https://www.npmjs.com/package/clsx): ^2.1.0
-- [framer-motion](https://www.npmjs.com/package/framer-motion): ^10.17.12
-- [next](https://www.npmjs.com/package/next): 14.0.4
-- [react](https://www.npmjs.com/package/react): ^18
-- [react-dom](https://www.npmjs.com/package/react-dom): ^18
-- [react-icons](https://www.npmjs.com/package/react-icons): ^5.0.1
-- [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer): ^9.5.3
-- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge): ^2.2.0
-- [three](https://www.npmjs.com/package/three): ^0.160.0
-- [@types/node](https://www.npmjs.com/package/@types/node): ^20
-- [@types/react](https://www.npmjs.com/package/@types/react): ^18
-- [@types/react-dom](https://www.npmjs.com/package/@types/react-dom): ^18
-- [autoprefixer](https://www.npmjs.com/package/autoprefixer): ^10.0.1
-- [eslint](https://www.npmjs.com/package/eslint): ^8
-- [eslint-config-next](https://www.npmjs.com/package/eslint-config-next): 14.0.4
-- [postcss](https://www.npmjs.com/package/postcss): ^8
-- [tailwindcss](https://www.npmjs.com/package/tailwindcss): ^3.3.0
-- [typescript](https://www.npmjs.com/package/typescript): ^5
-
-## :coffee: Buy Me a Coffee
-
-[<img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" width="200" />](https://www.buymeacoffee.com/sanidhy "Buy me a Coffee")
-
-## :rocket: Follow Me
-
-[![GitHub followers](https://img.shields.io/github/followers/sanidhyy?style=social&label=Follow&maxAge=2592000)](https://github.com/sanidhyy "Follow Me")
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2Fsanidhyy%2Fspace-portfolio "Tweet")
-[![YouTube](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@OPGAMER. "Subscribe my YouTube Channel")
-
-## :books: Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## :page_with_curl: Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## :star: Give A Star
-
-You can also give this repository a star to show more people and they can use this repository.
-
-## :star2: Star History
-
-<a href="https://star-history.com/#sanidhyy/space-portfolio&Timeline">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sanidhyy/space-portfolio&type=Timeline&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sanidhyy/space-portfolio&type=Timeline" />
-  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sanidhyy/space-portfolio&type=Timeline" />
-</picture>
-</a>
-
-<br />
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<div align="center">
+  <p>Made with ❤️ by <a href="https://github.com/sanidhyy">Sanidhya Kumar Verma</a></p>
+</div>
