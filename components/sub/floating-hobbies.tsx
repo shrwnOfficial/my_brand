@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const FloatingHobbies = () => {
@@ -9,10 +9,6 @@ export const FloatingHobbies = () => {
   const opacityScroll = useTransform(scrollY, [2000, 2600], [0, 1]);
 
   const [position, setPosition] = useState({ x: 100, y: 100 });
-
-  // Use smooth spring physics for the floating animation so it snaps nicely
-  const springX = useSpring(position.x, { stiffness: 60, damping: 15 });
-  const springY = useSpring(position.y, { stiffness: 60, damping: 15 });
 
   const getRandomPosition = () => {
     if (typeof window !== "undefined") {
@@ -27,26 +23,26 @@ export const FloatingHobbies = () => {
   };
 
   useEffect(() => {
-    const initialPos = getRandomPosition();
-    setPosition(initialPos);
-    springX.set(initialPos.x);
-    springY.set(initialPos.y);
+    setPosition(getRandomPosition());
 
     const interval = setInterval(() => {
-      const nextPos = getRandomPosition();
-      setPosition(nextPos);
-      springX.set(nextPos.x);
-      springY.set(nextPos.y);
+      setPosition(getRandomPosition());
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [springX, springY]);
+  }, []);
 
   return (
     <motion.div
+      animate={{
+        x: position.x,
+        y: position.y,
+      }}
+      transition={{
+        x: { duration: 15, ease: "linear" },
+        y: { duration: 15, ease: "linear" },
+      }}
       style={{
-        x: springX,
-        y: springY,
         opacity: opacityScroll, // Only fully visible after 2600px scroll
       }}
       className="fixed z-50 flex flex-col items-center justify-center p-6 w-48 h-48 rounded-full pointer-events-none cursor-default"
