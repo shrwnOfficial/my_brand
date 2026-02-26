@@ -5,6 +5,7 @@ import type { PropsWithChildren } from "react";
 import { Footer } from "@/components/main/footer";
 import { Navbar } from "@/components/main/navbar";
 import { StarsCanvas } from "@/components/main/star-background";
+import { LoadingScreen } from "@/components/main/loading-screen";
 import { siteConfig } from "@/config";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           inter.className
         )}
       >
+        <LoadingScreen />
         <StarsCanvas />
         <Navbar />
         {children}

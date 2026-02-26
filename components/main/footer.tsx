@@ -1,5 +1,5 @@
+import React from "react";
 import Link from "next/link";
-
 import { FOOTER_DATA } from "@/constants";
 
 export const Footer = () => {
@@ -21,7 +21,7 @@ export const Footer = () => {
                   rel="noreferrer noopener"
                   className="flex flex-row items-center my-[15px]"
                 >
-                  {Icon && <Icon />}
+                  {Icon && React.createElement(Icon as any)}
                   <span className="text-[15px] ml-[6px]">{name}</span>
                 </Link>
               ))}
@@ -30,7 +30,7 @@ export const Footer = () => {
         </div>
 
         <div className="mb-[20px] text-[15px] text-center">
-          &copy; John Doe {new Date().getFullYear()} Inc. All rights reserved.
+          &copy; M Shrawan Matrubai
         </div>
       </div>
     </div>

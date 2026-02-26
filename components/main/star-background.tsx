@@ -6,16 +6,44 @@ import * as random from "maath/random";
 import { useState, useRef, Suspense } from "react";
 import type { Points as PointsType } from "three";
 
+const Planet = ({ position, color, size, speed }: { position: [number, number, number], color: string, size: number, speed: number }) => {
+  const ref = useRef<any>(null);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime() * speed;
+    if (ref.current) {
+      ref.current.position.set(
+        position[0] + Math.sin(t) * 0.5,
+        position[1] + Math.cos(t) * 0.5,
+        position[2]
+      );
+      ref.current.rotation.y += 0.01;
+    }
+  });
+
+  return (
+    <mesh ref={ref} position={position}>
+      <sphereGeometry args={[size, 32, 32]} />
+      <meshStandardMaterial
+        color={color}
+        emissive={color}
+        emissiveIntensity={0.5}
+        roughness={0.2}
+        metalness={0.8}
+      />
+    </mesh>
+  );
+};
+
 export const StarBackground = (props: PointsProps) => {
   const ref = useRef<PointsType | null>(null);
   const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5000), { radius: 1.2 })
+    random.inSphere(new Float32Array(1500), { radius: 1.2 })
   );
 
   useFrame((_state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.x -= delta / 15;
+      ref.current.rotation.y -= delta / 20;
     }
   });
 
@@ -30,12 +58,16 @@ export const StarBackground = (props: PointsProps) => {
       >
         <PointMaterial
           transparent
-          color="#fff"
+          color="#ffffff"
           size={0.002}
           sizeAttenuation
           depthWrite={false}
         />
       </Points>
+
+      <ambientLight intensity={0.4} />
+      <pointLight position={[10, 10, 10]} intensity={2.5} color="#00aaff" />
+      <pointLight position={[-10, -10, -10]} intensity={1.5} color="#7042f8" />
     </group>
   );
 };
