@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export const FloatingHobbies = () => {
   // Track scroll position to only show after scrolling down (~2500px near Education)
@@ -9,10 +9,8 @@ export const FloatingHobbies = () => {
   const opacityScroll = useTransform(scrollY, [2000, 2600], [0, 1]);
 
   const [position, setPosition] = useState({ x: 100, y: 100 });
-  const [isDodging, setIsDodging] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Use smooth spring physics for the dodging animation so it snaps nicely
+  // Use smooth spring physics for the floating animation so it snaps nicely
   const springX = useSpring(position.x, { stiffness: 60, damping: 15 });
   const springY = useSpring(position.y, { stiffness: 60, damping: 15 });
 
@@ -35,68 +33,23 @@ export const FloatingHobbies = () => {
     springY.set(initialPos.y);
 
     const interval = setInterval(() => {
-      if (!isDodging) {
-        const nextPos = getRandomPosition();
-        setPosition(nextPos);
-        springX.set(nextPos.x);
-        springY.set(nextPos.y);
-      }
+      const nextPos = getRandomPosition();
+      setPosition(nextPos);
+      springX.set(nextPos.x);
+      springY.set(nextPos.y);
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [isDodging, springX, springY]);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const distanceX = e.clientX - centerX;
-      const distanceY = e.clientY - centerY;
-      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-      // Trigger dodge if mouse gets within 200px
-      const threshold = 200;
-      if (distance < threshold) {
-        setIsDodging(true);
-        // Push in opposite direction of mouse
-        const force = (threshold - distance) * 2;
-        const pushX = -(distanceX / distance) * force;
-        const pushY = -(distanceY / distance) * force;
-
-        // Keep within window bounds
-        let newX = position.x + pushX;
-        let newY = position.y + pushY;
-        if (typeof window !== "undefined") {
-          newX = Math.max(50, Math.min(newX, window.innerWidth - 300));
-          newY = Math.max(50, Math.min(newY, window.innerHeight - 300));
-        }
-
-        setPosition({ x: newX, y: newY });
-        springX.set(newX);
-        springY.set(newY);
-
-        // Reset dodging state after a short delay
-        setTimeout(() => setIsDodging(false), 500);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [position, springX, springY]);
+  }, [springX, springY]);
 
   return (
     <motion.div
-      ref={containerRef}
       style={{
         x: springX,
         y: springY,
         opacity: opacityScroll, // Only fully visible after 2600px scroll
       }}
-      className="fixed z-50 flex flex-col items-center justify-center p-6 w-48 h-48 rounded-full pointer-events-auto cursor-default"
+      className="fixed z-50 flex flex-col items-center justify-center p-6 w-48 h-48 rounded-full pointer-events-none cursor-default"
     >
       {/* 3D Orb Background layers */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-500/10 backdrop-blur-md" />
